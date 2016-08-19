@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Field;
+use App\Form;
 
-class FormController extends Controller
-{
+class FormController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,9 @@ class FormController extends Controller
      */
     public function index()
     {
-        return view('forms.list');
+        $forms = Form::all();
+
+        return view('forms.list', compact('forms'));
     }
 
     /**
@@ -26,7 +29,9 @@ class FormController extends Controller
      */
     public function create()
     {
-        return view('forms.create');
+        $fields = Field::all();
+
+        return view('forms.create', compact('fields'));
     }
 
     /**
@@ -37,7 +42,17 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fields = array_flatten($request->only('1', '2', '3'));
+        
+        $form = Form::create($request->only('name'));
+
+        $form->fields()->attach($fields);
+
+        return redirect('/form')
+                        ->with('status', 'The Form was created!');
+
+
+        //dd($request->only('field_id'));
     }
 
     /**
@@ -48,7 +63,9 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        //
+        $form = Form::find($id);
+
+        return view('forms.show', compact('form'));
     }
 
     /**
@@ -82,6 +99,14 @@ class FormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $form = Form::find($id);
+        
+        $form->fields()->detach();
+        
+        $form->delete();
+        
+        return redirect('/form')
+                        ->with('status', 'The Form was deleted!');
     }
+
 }

@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Route::get('/form', 'FormController@index');
 
+Route::get('/form/show/{id}', 'FormController@show');
+
+Route::get('/form/delete/{id}', 'FormController@destroy');
+
 Route::get('/form/create', 'FormController@create');
 
 Route::post('/form/store', 'FormController@store');

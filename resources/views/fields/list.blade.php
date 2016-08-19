@@ -3,34 +3,28 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <h1>Custom fields table</h1>
         <div class="col-md-8 col-md-offset-2">
             <table class="table table-hover"> 
                 <thead> 
                     <tr> 
-                        <th>#</th> 
-                        <th>First Name</th> 
-                        <th>Last Name</th> 
-                        <th>Username</th> 
+                        <th>ID</th> 
+                        <th>Label</th> 
+                        <th>Type</th> 
+                        <th>Length</th>
+                        <th>Required</th>
                     </tr> 
                 </thead> 
                 <tbody>
+                    @foreach ($fields as $v)
                     <tr> 
-                        <th scope=row>1</th> 
-                        <td>Mark</td> 
-                        <td>Otto</td> 
-                        <td>@mdo</td> 
+                        <th scope=row>{{$v->id}}</th> 
+                        <td>{{$v->label}}</td> 
+                        <td>{{$v->type->type_name}}</td> 
+                        <td>{{$v->length}}</td> 
+                        <td>{{$v->is_required ? 'YES' : 'NO'}}</td> 
                     </tr> 
-                    <tr> 
-                        <th scope=row>2</th> 
-                        <td>Jacob</td> 
-                        <td>Thornton</td> 
-                        <td>@fat</td> 
-                    </tr> <tr> 
-                        <th scope=row>3</th> 
-                        <td>Larry</td> 
-                        <td>the Bird</td> 
-                        <td>@twitter</td> 
-                    </tr> 
+                    @endforeach
                 </tbody> 
             </table>
         </div>

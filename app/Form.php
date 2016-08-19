@@ -8,14 +8,14 @@ class Form extends Model {
 
     protected $table = 'forms';
 
-    //protected $fillable = ['forename', 'surname', 'email', 'created'];
-
+    protected $fillable = ['name'];
+    
     /**
      * The field that belong to the forms.
      */
     public function fields()
     {
-        return $this->belongsToMany('App\Field');
+        return $this->belongsToMany('App\Field','field_form');
     }
 
 }

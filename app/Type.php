@@ -8,5 +8,13 @@ class Type extends Model
 {
     protected $table = 'types';
     
-    //protected $fillable = ['forename', 'surname', 'email', 'created'];
+    protected $fillable = ['type_name'];
+    
+    /**
+     * The types.
+     */
+    public function fields()
+    {
+        return $this->hasMany('App\Field');
+    }
 }

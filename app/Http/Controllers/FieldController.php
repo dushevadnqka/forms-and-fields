@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Field;
+use App\Type;
 
 class FieldController extends Controller
 {
@@ -16,7 +18,9 @@ class FieldController extends Controller
      */
     public function index()
     {
-        return view('fields.list');
+        $fields = Field::all();
+        
+        return view('fields.list', compact('fields'));
     }
 
     /**
@@ -26,7 +30,9 @@ class FieldController extends Controller
      */
     public function create()
     {
-        return view('fields.create');
+        $types = Type::all();
+        
+        return view('fields.create', compact('types'));
     }
 
     /**
@@ -37,7 +43,10 @@ class FieldController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Field::create($request->all());
+        
+        return redirect('/field')
+                        ->with('status', 'Custom field was created!');
     }
 
     /**
